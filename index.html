@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota até o Senai Suzano</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <style>
+     #map { 
+            height: 95vh;
+            width: 90vw;
+            border-radius: 5px;
+        }
+</style>
+    
+</head>
+<body>
+
+    
+    <div class="fundo">
+        <div class="conteiner">
+            <div class="senai"><img src="senaisuzano.png" alt=""></div>
+            <div id="map"></div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+
+        navigator.geolocation.getCurrentPosition(funciona, erro)
+
+        function funciona(pos) {
+         var la = pos.coords.latitude;
+        var lo = pos.coords.longitude;
+         var map = L.map('map').setView([la, lo], 12);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);  
+
+        L.Routing.control({
+            waypoints: [
+                L.latLng(la, lo), 
+                L.latLng(-23.556688148343888, -46.31376663350625) 
+            ]
+        }).addTo(map);}
+
+
+        function erro(){
+            console.log('Não foi possível localizar');
+        }
+
+        
+
+    </script>
+
+</body>
+</html>
